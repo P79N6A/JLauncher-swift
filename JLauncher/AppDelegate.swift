@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  MyWidget
+//  JLauncher
 //
 //  Created by 大鹏 on 2016/11/22.
 //  Copyright © 2016年 jtanisme. All rights reserved.
