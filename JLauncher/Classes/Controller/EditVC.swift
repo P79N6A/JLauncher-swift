@@ -13,13 +13,39 @@ import SwiftyJSON
 
 class EditVC: UIViewController{
 
+    @IBOutlet weak var iconImg: UIImageView!
     @IBOutlet weak var appNameTextField: UITextField!
     @IBOutlet weak var storeIDTextField: UITextField!
     @IBOutlet weak var urlTextField: UITextField!
     @IBOutlet weak var conformBtn: UIButton!
     
+    var localModel:JLLocalModel?
+    var linkIndex = 0
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let model = localModel {
+            iconImg.image = UIImage(named:model.icon ?? "")
+            appNameTextField.text = model.name
+            storeIDTextField.text = model.id
+            if linkIndex == 0 {
+                urlTextField.text = model.link?.first?.url
+            }else {
+                let linkModel = model.link?[linkIndex]
+                appNameTextField.text = linkModel?.name
+//                if (linkModel?.params?.count ?? 0) > 0 {
+//                    var url = linkModel?.url
+//                    for param in (linkModel?.params)! {
+//                        param.key
+//                    }
+//                    let paramModel = <#value#>
+//                    
+//                }else {
+                    urlTextField.text = linkModel?.url
+//                }
+
+            }
+        }
     }
     
     @IBAction func conformClicked(_ sender: UIButton) {
@@ -28,11 +54,14 @@ class EditVC: UIViewController{
                                 url: urlTextField.text ?? "",
                                 image: image,
                                 storeID: storeIDTextField.text)
-//            _allArray.append(model)
-//            _addedArray.append(model)
-//            tableView.reloadData()
+            if var array = JLModel.retrieveModelArr() {
+                array.append(model)
+                JLModel.saveModel(arr: array)
+            }
         }
-        if let idString = storeIDTextField.text {
+        if let img = iconImg.image {
+            saveToLocal(image:img)
+        } else if let idString = storeIDTextField.text{
             let urlStr = "http://itunes.apple.com/lookup?id=" + idString
             Alamofire.request(urlStr).responseJSON(completionHandler: { response in
                 
@@ -51,19 +80,7 @@ class EditVC: UIViewController{
                     saveToLocal(image:nil)
                 }
             })
-        }else {
-            saveToLocal(image:nil)
         }
         
     }
-    
-    
-    //MARK: - Delegate
-    
-    func JLItemCellClicked(indexPath: IndexPath) {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: JLItemCell.cellIdentifer(), for: indexPath) as! JLItemCell
-//        let model = _allArray[indexPath.row]
-//        cell.cellWithModel(model: model, isSelected: _addedArray.contains(model), indexPath: indexPath)
-    }
-    
 }

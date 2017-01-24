@@ -92,7 +92,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Bz-0u-Pjt" id="zf3-ms-mq0">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -105,7 +105,35 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fu6-eG-2Tp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="28" y="72"/>
+            <point key="canvasLocation" x="-76" y="72"/>
+        </scene>
+        <!--Detail TableVC-->
+        <scene sceneID="NwQ-tD-peC">
+            <objects>
+                <tableViewController storyboardIdentifier="DetailTableVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="njJ-o3-3qi" customClass="DetailTableVC" customModule="JLauncher" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="C3Y-ba-oZU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="zbU-5Y-JXd">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zbU-5Y-JXd" id="13G-uI-Apn">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="njJ-o3-3qi" id="myS-TI-XBR"/>
+                            <outlet property="delegate" destination="njJ-o3-3qi" id="IEd-2g-aSH"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qo1-L8-UoA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-20" y="743"/>
         </scene>
         <!--Action TypeVC-->
         <scene sceneID="L91-na-QRE">
@@ -338,7 +366,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WZX-mG-rnH" id="IR3-fO-Xnl">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -356,7 +384,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sx0-60-U0T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="710" y="72"/>
+            <point key="canvasLocation" x="601" y="72"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="Vap-kE-kd7">
@@ -371,7 +399,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="O1g-iW-ns7" id="qjz-XL-IL7">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -389,7 +417,7 @@
         <!--Edit-->
         <scene sceneID="dM8-pS-gik">
             <objects>
-                <viewController id="U8U-OU-ONM" customClass="EditVC" customModule="JLauncher" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="U8U-OU-ONM" customClass="EditVC" customModule="JLauncher" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hCy-CK-bNx"/>
                         <viewControllerLayoutGuide type="bottom" id="VHY-4d-Xg6"/>
@@ -476,6 +504,7 @@
                     <connections>
                         <outlet property="appNameTextField" destination="WGW-aQ-JTy" id="vag-NA-ae4"/>
                         <outlet property="conformBtn" destination="54n-Iz-MFJ" id="wYi-S4-gC8"/>
+                        <outlet property="iconImg" destination="zgF-Gk-qe3" id="NTe-zQ-8H7"/>
                         <outlet property="storeIDTextField" destination="Ubn-vt-oFb" id="BdO-Pl-36E"/>
                         <outlet property="urlTextField" destination="7b0-w2-lmD" id="Ez4-vR-jQB"/>
                     </connections>

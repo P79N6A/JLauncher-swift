@@ -7,8 +7,6 @@
 //
 
 import UIKit
-let JLUserDefaultsArrayKey = "group.com.jtanisme.widget.array"
-let JLUserDefaultsAddedArrayKey = "group.com.jtanisme.widget.added.array"
 
 class JLModel: NSObject, NSCoding {
 
@@ -18,6 +16,7 @@ class JLModel: NSObject, NSCoding {
     var storeID:String?
     
     fileprivate static let JLUserDefaultsNameKey = "group.com.jtanisme.widget"
+    fileprivate static let JLUserDefaultsArrayKey = "group.com.jtanisme.widget.array"
     required init(name:String,url:String,image:UIImage?,storeID:String?) {
         super.init()
         self.name = name
@@ -51,16 +50,16 @@ class JLModel: NSObject, NSCoding {
         return NSKeyedUnarchiver.unarchiveObject(with: unarchivedObject) as? [JLModel]
     }
 
-    class func saveModel(arr:[JLModel], key:String) {
+    class func saveModel(arr:[JLModel]) {
         let archivedObject = archiveModelArr(arr: arr)
         let defaults = UserDefaults(suiteName: JLUserDefaultsNameKey)
-        defaults?.set(archivedObject, forKey: key)
+        defaults?.set(archivedObject, forKey: JLUserDefaultsArrayKey)
         defaults?.synchronize()
     }
     
-    class func retrieveModelArr(key:String) -> [JLModel]? {
+    class func retrieveModelArr() -> [JLModel]? {
         let defaults = UserDefaults(suiteName: JLUserDefaultsNameKey)
-        if let unarchivedObject = defaults?.object(forKey: key) as? Data {
+        if let unarchivedObject = defaults?.object(forKey: JLUserDefaultsArrayKey) as? Data {
             return unarchivedModelArr(unarchivedObject: unarchivedObject)
         }
         return nil
