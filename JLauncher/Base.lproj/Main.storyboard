@@ -353,7 +353,7 @@
             </objects>
             <point key="canvasLocation" x="772" y="-746"/>
         </scene>
-        <!--Title-->
+        <!--Table View Controller-->
         <scene sceneID="87W-p6-lPb">
             <objects>
                 <tableViewController id="Fn5-nv-RCX" sceneMemberID="viewController">
@@ -376,11 +376,6 @@
                             <outlet property="delegate" destination="Fn5-nv-RCX" id="Z5W-7A-vFq"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Title" id="Ems-eG-uce">
-                        <barButtonItem key="leftBarButtonItem" image="nav_back" id="CdN-6Q-FZj">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        </barButtonItem>
-                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sx0-60-U0T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -538,6 +533,5 @@
         <image name="action_type_launch_app" width="200" height="200"/>
         <image name="action_type_system_actions" width="200" height="200"/>
         <image name="add_action" width="94" height="94"/>
-        <image name="nav_back" width="23" height="23"/>
     </resources>
 </document>

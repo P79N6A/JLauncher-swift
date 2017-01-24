@@ -38,17 +38,18 @@ class JLIconCell: UICollectionViewCell {
     }
     
     private func initViews() {
-        _imageView = UIImageView(frame: CGRect(x: 4, y: 4, width: width-8, height: width-8))
+        _imageView = UIImageView(frame: CGRect(x: 5, y: 5, width: width-10, height: width-10))
         _imageView.setCornerRadius(4)
         addSubview(_imageView)
-        _textLabel = UILabel(frame: CGRect(x: 4, y: _imageView.bottom, width: width-8, height: height-width))
+        _textLabel = UILabel(frame: CGRect(x: 0, y: _imageView.bottom, width: width, height: height-_imageView.height))
         _textLabel.textColor = UIColor.black
-        _textLabel.font = UIFont.systemFont(ofSize: 12)
+        _textLabel.textAlignment = .center
+        _textLabel.font = UIFont.systemFont(ofSize: 10)
         addSubview(_textLabel)
         
         _deleteBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 21, height: 21))
         _deleteBtn.addTarget(self, action: #selector(deleteClicked), for: .touchUpInside)
-//        _deleteBtn.setImage(#imageLiteral(resourceName: "btn_delete"), for: .normal)
+        _deleteBtn.setImage(#imageLiteral(resourceName: "action_delete"), for: .normal)
         _deleteBtn.isHidden = true
         addSubview(_deleteBtn)
     }

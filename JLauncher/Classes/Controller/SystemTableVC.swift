@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-class SystemTableVC: UITableViewController {
+class SystemTableVC: BaseTableVC {
 
     private var _sysAppArray = [JLLocalModel]()
     override func viewDidLoad() {

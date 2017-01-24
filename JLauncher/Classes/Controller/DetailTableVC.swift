@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailTableVC: UITableViewController {
+class DetailTableVC: BaseTableVC {
     var localModel:JLLocalModel?
     private var _detailArray = [JLLinkModel]()
     

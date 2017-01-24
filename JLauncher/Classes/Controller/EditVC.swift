@@ -11,7 +11,7 @@ import Kingfisher
 import Alamofire
 import SwiftyJSON
 
-class EditVC: UIViewController{
+class EditVC: BaseVC{
 
     @IBOutlet weak var iconImg: UIImageView!
     @IBOutlet weak var appNameTextField: UITextField!
@@ -58,6 +58,7 @@ class EditVC: UIViewController{
                 array.append(model)
                 JLModel.saveModel(arr: array)
             }
+            _ = navigationController?.popToRootViewController(animated: true)
         }
         if let img = iconImg.image {
             saveToLocal(image:img)

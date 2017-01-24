@@ -1,5 +1,5 @@
 //
-//  BaseVC.swift
+//  BaseTableVC.swift
 //  JLauncher
 //
 //  Created by 谭建建 on 2017/1/24.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-class BaseVC: UIViewController, UIGestureRecognizerDelegate {
-
+class BaseTableVC: UITableViewController, UIGestureRecognizerDelegate {
+    
     var leftBtn:UIButton!
     var rightBtn:UIButton!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initLeftBtn()
@@ -27,7 +27,7 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate {
         let leftItem = UIBarButtonItem(customView: leftBtn)
         let negativeSpacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         negativeSpacer.width = -15
-
+        
         navigationItem.leftBarButtonItems = [negativeSpacer,leftItem]
         navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
@@ -42,7 +42,7 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func setRightBtnImage() {}
-
+    
     func leftBtnClicked() {
         _ = navigationController?.popViewController(animated: true)
     }

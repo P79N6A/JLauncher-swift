@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ActionTypeVC: UIViewController {
+class ActionTypeVC: BaseVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()

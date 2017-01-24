@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomTableVC: UITableViewController {
+class CustomTableVC: BaseTableVC {
     private var _userDefault:UserDefaults!
     
     private var _allArray = [JLModel]()
@@ -17,7 +17,7 @@ class CustomTableVC: UITableViewController {
         super.viewDidLoad()
         
         tableView.register(JLItemCell.self, forCellReuseIdentifier: JLItemCell.cellIdentifer())
-        if let arr = JLModel.retrieveModelArr(key: JLUserDefaultsAddedArrayKey) {
+        if let arr = JLModel.retrieveModelArr() {
 //            _addedArray = arr
         }
         tableView.reloadData()
