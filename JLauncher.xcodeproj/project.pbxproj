@@ -7,11 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1403ED251E3621DD009352F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1403ED241E3621DD009352F3 /* Assets.xcassets */; };
 		1403ED271E36324D009352F3 /* ActionTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1403ED261E36324D009352F3 /* ActionTypeVC.swift */; };
 		1403ED291E364CBA009352F3 /* SystemTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1403ED281E364CBA009352F3 /* SystemTableVC.swift */; };
 		1403ED2B1E364CCF009352F3 /* CustomTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1403ED2A1E364CCF009352F3 /* CustomTableVC.swift */; };
 		1403ED2D1E364CE4009352F3 /* InstalledTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1403ED2C1E364CE4009352F3 /* InstalledTableVC.swift */; };
+		1403ED381E370A5F009352F3 /* AppList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1403ED2F1E370A5F009352F3 /* AppList.plist */; };
+		1403ED391E370A5F009352F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1403ED301E370A5F009352F3 /* Assets.xcassets */; };
+		1403ED3A1E370A5F009352F3 /* ContactAppList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1403ED311E370A5F009352F3 /* ContactAppList.plist */; };
+		1403ED3C1E370A5F009352F3 /* Init.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1403ED331E370A5F009352F3 /* Init.plist */; };
+		1403ED3D1E370A5F009352F3 /* InitOld.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1403ED341E370A5F009352F3 /* InitOld.plist */; };
+		1403ED3E1E370A5F009352F3 /* SettingList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1403ED351E370A5F009352F3 /* SettingList.plist */; };
+		1403ED3F1E370A5F009352F3 /* SpecialList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1403ED361E370A5F009352F3 /* SpecialList.plist */; };
+		1403ED401E370A5F009352F3 /* SystemAppList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1403ED371E370A5F009352F3 /* SystemAppList.plist */; };
+		1403ED411E370A68009352F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1403ED301E370A5F009352F3 /* Assets.xcassets */; };
 		1423B9401E2B5EFC00BC0E79 /* JLModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1423B93F1E2B5EFC00BC0E79 /* JLModel.swift */; };
 		1423B9411E2B5F0100BC0E79 /* JLModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1423B93F1E2B5EFC00BC0E79 /* JLModel.swift */; };
 		1423B9471E2B79E300BC0E79 /* EditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1423B9461E2B79E300BC0E79 /* EditVC.swift */; };
@@ -58,11 +66,18 @@
 
 /* Begin PBXFileReference section */
 		115D610EFA547A8FA82809CB /* Pods-extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-extension/Pods-extension.release.xcconfig"; sourceTree = "<group>"; };
-		1403ED241E3621DD009352F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = JLauncher/Assets.xcassets; sourceTree = "<group>"; };
 		1403ED261E36324D009352F3 /* ActionTypeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionTypeVC.swift; sourceTree = "<group>"; };
 		1403ED281E364CBA009352F3 /* SystemTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemTableVC.swift; sourceTree = "<group>"; };
 		1403ED2A1E364CCF009352F3 /* CustomTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableVC.swift; sourceTree = "<group>"; };
 		1403ED2C1E364CE4009352F3 /* InstalledTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstalledTableVC.swift; sourceTree = "<group>"; };
+		1403ED2F1E370A5F009352F3 /* AppList.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = AppList.plist; sourceTree = "<group>"; };
+		1403ED301E370A5F009352F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1403ED311E370A5F009352F3 /* ContactAppList.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = ContactAppList.plist; sourceTree = "<group>"; };
+		1403ED331E370A5F009352F3 /* Init.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Init.plist; sourceTree = "<group>"; };
+		1403ED341E370A5F009352F3 /* InitOld.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = InitOld.plist; sourceTree = "<group>"; };
+		1403ED351E370A5F009352F3 /* SettingList.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = SettingList.plist; sourceTree = "<group>"; };
+		1403ED361E370A5F009352F3 /* SpecialList.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = SpecialList.plist; sourceTree = "<group>"; };
+		1403ED371E370A5F009352F3 /* SystemAppList.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = SystemAppList.plist; sourceTree = "<group>"; };
 		1423B93F1E2B5EFC00BC0E79 /* JLModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLModel.swift; sourceTree = "<group>"; };
 		1423B9461E2B79E300BC0E79 /* EditVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditVC.swift; sourceTree = "<group>"; };
 		143D79CB1E2E29080041F21C /* JLIconCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLIconCell.swift; sourceTree = "<group>"; };
@@ -109,6 +124,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1403ED2E1E370A5F009352F3 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				1403ED2F1E370A5F009352F3 /* AppList.plist */,
+				1403ED301E370A5F009352F3 /* Assets.xcassets */,
+				1403ED311E370A5F009352F3 /* ContactAppList.plist */,
+				1403ED331E370A5F009352F3 /* Init.plist */,
+				1403ED341E370A5F009352F3 /* InitOld.plist */,
+				1403ED351E370A5F009352F3 /* SettingList.plist */,
+				1403ED361E370A5F009352F3 /* SpecialList.plist */,
+				1403ED371E370A5F009352F3 /* SystemAppList.plist */,
+			);
+			name = Resource;
+			path = JLauncher/Resource;
+			sourceTree = "<group>";
+		};
 		143D79C91E2E24D80041F21C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,7 +185,7 @@
 		8471EC291DE3E263001D1AA1 = {
 			isa = PBXGroup;
 			children = (
-				1403ED241E3621DD009352F3 /* Assets.xcassets */,
+				1403ED2E1E370A5F009352F3 /* Resource */,
 				8471EC341DE3E263001D1AA1 /* JLauncher */,
 				84837BE31DEC3DA900897874 /* extension */,
 				84837BE01DEC3DA900897874 /* Frameworks */,
@@ -318,7 +349,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				14869BB41E29CDD200462633 /* LaunchScreen.storyboard in Resources */,
-				1403ED251E3621DD009352F3 /* Assets.xcassets in Resources */,
+				1403ED3A1E370A5F009352F3 /* ContactAppList.plist in Resources */,
+				1403ED3E1E370A5F009352F3 /* SettingList.plist in Resources */,
+				1403ED3D1E370A5F009352F3 /* InitOld.plist in Resources */,
+				1403ED401E370A5F009352F3 /* SystemAppList.plist in Resources */,
+				1403ED3F1E370A5F009352F3 /* SpecialList.plist in Resources */,
+				1403ED3C1E370A5F009352F3 /* Init.plist in Resources */,
+				1403ED381E370A5F009352F3 /* AppList.plist in Resources */,
+				1403ED391E370A5F009352F3 /* Assets.xcassets in Resources */,
 				8471EC3B1DE3E263001D1AA1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -327,6 +365,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1403ED411E370A68009352F3 /* Assets.xcassets in Resources */,
 				84837BE81DEC3DA900897874 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

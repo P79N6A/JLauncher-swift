@@ -79,10 +79,10 @@
             </objects>
             <point key="canvasLocation" x="-185" y="-717"/>
         </scene>
-        <!--Table View Controller-->
+        <!--System TableVC-->
         <scene sceneID="cbJ-cm-0K4">
             <objects>
-                <tableViewController id="4YW-et-bO7" sceneMemberID="viewController">
+                <tableViewController id="4YW-et-bO7" customClass="SystemTableVC" customModule="JLauncher" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ra0-se-4xW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

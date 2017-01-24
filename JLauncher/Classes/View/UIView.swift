@@ -11,6 +11,9 @@ import UIKit
 
 // MARK: - Frame
 
+let ScreenWidth = UIScreen.main.bounds.width
+let ScreenHeight = UIScreen.main.bounds.height
+
 public extension UIView {
     
     var origin:CGPoint {
