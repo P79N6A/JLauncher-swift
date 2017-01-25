@@ -20,6 +20,7 @@ class HomeVC: BaseVC, UICollectionViewDelegate, UICollectionViewDataSource, JLIc
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         addBtn.layer.cornerRadius = addBtn.width/2
         
         let layout = UICollectionViewFlowLayout()

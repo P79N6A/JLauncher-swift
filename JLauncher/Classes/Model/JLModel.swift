@@ -58,22 +58,14 @@ class JLModel: NSObject, NSCoding {
         let archivedObject = archiveModelArr(arr: arr)
         let wormhole = MMWormhole(applicationGroupIdentifier: JLUserDefaultsNameKey, optionalDirectory: "wormhole")
         wormhole.passMessageObject(archivedObject, identifier: JLUserDefaultsArrayKey)
-//        let defaults = UserDefaults(suiteName: JLUserDefaultsNameKey)
-//        defaults?.set(archivedObject, forKey: JLUserDefaultsArrayKey)
-//        defaults?.synchronize()
     }
     
     class func retrieveModelArr() -> [JLModel]? {
-//        let defaults = UserDefaults(suiteName: JLUserDefaultsNameKey)
         let wormhole = MMWormhole(applicationGroupIdentifier: JLUserDefaultsNameKey, optionalDirectory: "wormhole")
         if let unarchivedObject = wormhole.message(withIdentifier: JLUserDefaultsArrayKey)as? Data {
             return unarchivedModelArr(unarchivedObject: unarchivedObject)
         }
         return nil
-//        if let unarchivedObject = defaults?.object(forKey: JLUserDefaultsArrayKey) as? Data {
-//            return unarchivedModelArr(unarchivedObject: unarchivedObject)
-//        }
-//        return nil
     }
     
     class func getDefaultArr() -> [JLModel] {

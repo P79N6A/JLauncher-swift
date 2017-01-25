@@ -11,23 +11,13 @@ import SwiftyJSON
 
 class InstalledTableVC: BaseTableVC {
     
-    private var _installedAppArray = [JLLocalModel]()
+    private var _array = [JLLocalModel]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(JLItemCell.self, forCellReuseIdentifier: JLItemCell.cellIdentifer())
         tableView.separatorStyle = .singleLine
-        let path = Bundle.main.path(forResource: "AppList", ofType: "plist") ?? ""
-        if let dic = NSDictionary.init(contentsOfFile: path){
-            let json = JSON(dic)
-            for (key,subJson) in json {
-                let model = JLLocalModel(key: key, json: subJson)
-                if let urlStr = model.link?.first?.url,
-                    let url = URL(string:urlStr),
-                    UIApplication.shared.canOpenURL(url) {
-                    _installedAppArray.append(model)
-                }
-            }
-        }
+        _array = InstalledAppManager.shared.appArray()
     }
     
     
@@ -38,20 +28,20 @@ class InstalledTableVC: BaseTableVC {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: JLItemCell.cellIdentifer(), for: indexPath) as! JLItemCell
-        let model = _installedAppArray[indexPath.row]
+        let model = _array[indexPath.row]
         cell.cellWithModel(model: model)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return _installedAppArray.count
+        return _array.count
     }
     
     //MARK: tableView Delegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let model = _installedAppArray[indexPath.row]
+        let model = _array[indexPath.row]
         let mainStory = UIStoryboard.init(name: "Main", bundle: nil)
         let count = model.link?.count ?? 0
         if count == 1 {

@@ -11,11 +11,12 @@ import NotificationCenter
 
 class TodayViewController: UIViewController, NCWidgetProviding, UICollectionViewDelegate, UICollectionViewDataSource {
         
-    @IBOutlet weak var collectionView: UICollectionView!
+    var collectionView: UICollectionView!
     
     private var _list = [JLModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(JLIconCell.self, forCellWithReuseIdentifier: JLIconCell.cellIdentifer())
@@ -43,7 +44,7 @@ class TodayViewController: UIViewController, NCWidgetProviding, UICollectionView
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         
         if (activeDisplayMode == NCWidgetDisplayMode.compact) {
-            self.preferredContentSize = maxSize
+            self.preferredContentSize = CGSize(width: maxSize.width, height: (maxSize.width-24)/5)
         }
         else {
             let num:CGFloat = ((_list.count % 5) == 0 ? 0 : 1)
@@ -58,10 +59,8 @@ class TodayViewController: UIViewController, NCWidgetProviding, UICollectionView
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
         layout.scrollDirection = UICollectionViewScrollDirection.vertical
-        collectionView.contentInset.left = 12
-        collectionView.contentInset.right = 12
-        
-        collectionView.setCollectionViewLayout(layout, animated: false)
+        collectionView.setCollectionViewLayout(layout, animated: true)
+        collectionView.size = preferredContentSize
         collectionView.reloadData()
     }
     //MARK: UICollectionViewDelegate

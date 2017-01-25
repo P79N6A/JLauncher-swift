@@ -33,6 +33,7 @@
 		143F03CA1E3862090027E626 /* SettingList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1403ED351E370A5F009352F3 /* SettingList.plist */; };
 		143F03CE1E3862FB0027E626 /* SystemAppList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1403ED371E370A5F009352F3 /* SystemAppList.plist */; };
 		143F03D01E388A410027E626 /* ActionTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143F03CF1E388A410027E626 /* ActionTypeVC.swift */; };
+		143F03D51E38A1E20027E626 /* InstalledAppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143F03D41E38A1E20027E626 /* InstalledAppManager.swift */; };
 		14869BB41E29CDD200462633 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14869BB21E29CDD200462633 /* LaunchScreen.storyboard */; };
 		6FC21A18AD0C6BA8B9BA7664 /* Pods_JLauncher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 651DC29E54B41E5514DF9BBE /* Pods_JLauncher.framework */; };
 		8471EC361DE3E263001D1AA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471EC351DE3E263001D1AA1 /* AppDelegate.swift */; };
@@ -89,6 +90,7 @@
 		143D79D11E2E2AC10041F21C /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		143D79E71E2F74D20041F21C /* JLItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLItemCell.swift; sourceTree = "<group>"; };
 		143F03CF1E388A410027E626 /* ActionTypeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionTypeVC.swift; sourceTree = "<group>"; };
+		143F03D41E38A1E20027E626 /* InstalledAppManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstalledAppManager.swift; sourceTree = "<group>"; };
 		145839181E29F38E000D6624 /* extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = extension.entitlements; sourceTree = "<group>"; };
 		145839191E29F3A2000D6624 /* JLauncher.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JLauncher.entitlements; sourceTree = "<group>"; };
 		14869BB31E29CDD200462633 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -98,7 +100,7 @@
 		8471EC351DE3E263001D1AA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8471EC371DE3E263001D1AA1 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		8471EC3A1DE3E263001D1AA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		8471EC411DE3E263001D1AA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8471EC411DE3E263001D1AA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		84837BDF1DEC3DA900897874 /* extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		84837BE11DEC3DA900897874 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		84837BE41DEC3DA900897874 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 		1403ED2E1E370A5F009352F3 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				8471EC411DE3E263001D1AA1 /* Info.plist */,
 				1403ED301E370A5F009352F3 /* Assets.xcassets */,
 				1403ED2F1E370A5F009352F3 /* AppList.plist */,
 				1403ED351E370A5F009352F3 /* SettingList.plist */,
@@ -193,6 +196,7 @@
 			children = (
 				1423B93F1E2B5EFC00BC0E79 /* JLModel.swift */,
 				1422055A1E3763E70048539B /* JLLocalModel.swift */,
+				143F03D41E38A1E20027E626 /* InstalledAppManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -225,7 +229,6 @@
 				145839191E29F3A2000D6624 /* JLauncher.entitlements */,
 				14869BB21E29CDD200462633 /* LaunchScreen.storyboard */,
 				8471EC391DE3E263001D1AA1 /* Main.storyboard */,
-				8471EC411DE3E263001D1AA1 /* Info.plist */,
 			);
 			path = JLauncher;
 			sourceTree = "<group>";
@@ -482,6 +485,7 @@
 				1403ED2B1E364CCF009352F3 /* CustomTableVC.swift in Sources */,
 				1422055B1E3763E70048539B /* JLLocalModel.swift in Sources */,
 				143D79D21E2E2AC10041F21C /* UIView.swift in Sources */,
+				143F03D51E38A1E20027E626 /* InstalledAppManager.swift in Sources */,
 				1403ED2D1E364CE4009352F3 /* InstalledTableVC.swift in Sources */,
 				8471EC361DE3E263001D1AA1 /* AppDelegate.swift in Sources */,
 				142205601E3779B30048539B /* DetailTableVC.swift in Sources */,

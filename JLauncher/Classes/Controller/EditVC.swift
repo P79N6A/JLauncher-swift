@@ -25,7 +25,18 @@ class EditVC: BaseVC{
     override func viewDidLoad() {
         super.viewDidLoad()
         if let model = localModel {
-            iconImg.image = UIImage(named:model.icon ?? "")
+            iconImg.setCornerRadius(iconImg.width/4)
+            iconImg.setBorderColor(UIColor.black.withAlphaComponent(0.1))
+            iconImg.setBorderWidth(0.5)
+            if let icon = model.icon {
+                if let img = UIImage.init(named: icon) {
+                    iconImg.image = img
+                }else if icon.hasPrefix("http") {
+                    InstalledAppManager.shared.retrieveImage(imageUrlStr: icon, result: { (image) in
+                        self.iconImg.image = image
+                    })
+                }
+            }
             appNameTextField.text = model.name
             storeIDTextField.text = model.id
             if linkIndex == 0 {
@@ -33,17 +44,7 @@ class EditVC: BaseVC{
             }else {
                 let linkModel = model.link?[linkIndex]
                 appNameTextField.text = linkModel?.name
-//                if (linkModel?.params?.count ?? 0) > 0 {
-//                    var url = linkModel?.url
-//                    for param in (linkModel?.params)! {
-//                        param.key
-//                    }
-//                    let paramModel = <#value#>
-//                    
-//                }else {
-                    urlTextField.text = linkModel?.url
-//                }
-
+                urlTextField.text = linkModel?.url
             }
         }
     }

@@ -36,48 +36,33 @@ class JLItemCell: UITableViewCell {
         addSubview(_arrowImg)
         
         _imageView = UIImageView(frame: CGRect(x: 18, y: 6, width: cellHeight - 12, height: cellHeight - 12))
-        _imageView.setCornerRadius(4)
+        _imageView.setCornerRadius(_imageView.width/4)
+        _imageView.setBorderColor(UIColor.black.withAlphaComponent(0.1))
+        _imageView.setBorderWidth(0.5)
         addSubview(_imageView)
         
-        _textLabel = UILabel(frame: CGRect(x: _imageView.right + 18, y: (cellHeight - 15)/2, width: _arrowImg.left - _imageView.right - 18, height: 15))
+        _textLabel = UILabel(frame: CGRect(x: _imageView.right + 18, y: (cellHeight - 18)/2, width: _arrowImg.left - _imageView.right - 18, height: 18))
         _textLabel.textColor = UIColor.black
-        _textLabel.font = UIFont.systemFont(ofSize: 12)
+        _textLabel.font = UIFont.systemFont(ofSize: 15)
         addSubview(_textLabel)
     }
     
     func cellWithModel(model:JLLocalModel) {
         if let icon = model.icon {
-            _imageView.image = UIImage.init(named: icon)
-        }else {
-            setIconImage(idString: model.id)
+            if let img = UIImage.init(named: icon) {
+                _imageView.image = img
+            }else if icon.hasPrefix("http") {
+                InstalledAppManager.shared.retrieveImage(imageUrlStr: icon, result: { (image) in
+                    self._imageView.image = image
+                })
+            }
         }
         _textLabel.text = model.name
         _arrowImg.isHidden = model.link?.count == 1
     }
     
-    private func setIconImage(idString:String?) {
-        if let idString = idString{
-            let urlStr = "http://itunes.apple.com/lookup?id=" + idString
-            Alamofire.request(urlStr).responseJSON(completionHandler: { response in
-                
-                switch response.result{
-                case .success(let value):
-                    let responseJson = JSON(value)
-                    let imageUrlStr = responseJson["results"][0]["artworkUrl512"].stringValue
-                    if let url = URL(string: imageUrlStr){
-                        KingfisherManager.shared.downloader.downloadImage(with: url, options: nil, progressBlock: nil, completionHandler: { (img, error, url, data) in
-                            self._imageView.image = img
-                        })
-                    }
-                case .failure( _):
-                    break
-                }
-            })
-        }
-    }
-    
     class func cellHeight() -> CGFloat {
-        return 46
+        return 66
     }
     
     class func cellIdentifer() -> String {
