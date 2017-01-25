@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MMWormhole
 
 class JLModel: NSObject, NSCoding {
 
@@ -15,7 +16,7 @@ class JLModel: NSObject, NSCoding {
     var image:UIImage?
     var storeID:String?
     
-    fileprivate static let JLUserDefaultsNameKey = "group.com.jtanisme.widget"
+    fileprivate static let JLUserDefaultsNameKey = "group.com.jtanisme.JLauncher"
     fileprivate static let JLUserDefaultsArrayKey = "group.com.jtanisme.widget.array"
     required init(name:String,url:String,image:UIImage?,storeID:String?) {
         super.init()
@@ -41,28 +42,38 @@ class JLModel: NSObject, NSCoding {
     }
     
     private class func archiveModelArr(arr:[JLModel]) -> NSData {
-        
+        NSKeyedArchiver.setClassName("JLModel", for: JLModel.self)
         let archivedObject = NSKeyedArchiver.archivedData(withRootObject: arr as NSArray)
         return archivedObject as NSData
     }
     
     private class func unarchivedModelArr(unarchivedObject:Data) -> [JLModel]? {
-        return NSKeyedUnarchiver.unarchiveObject(with: unarchivedObject) as? [JLModel]
+        NSKeyedUnarchiver.setClass(JLModel.self, forClassName: "JLModel")
+        let arr = NSKeyedUnarchiver.unarchiveObject(with: unarchivedObject)
+        let a = arr as? [JLModel]
+        return a
     }
 
     class func saveModel(arr:[JLModel]) {
         let archivedObject = archiveModelArr(arr: arr)
-        let defaults = UserDefaults(suiteName: JLUserDefaultsNameKey)
-        defaults?.set(archivedObject, forKey: JLUserDefaultsArrayKey)
-        defaults?.synchronize()
+        let wormhole = MMWormhole(applicationGroupIdentifier: JLUserDefaultsNameKey, optionalDirectory: "wormhole")
+        wormhole.passMessageObject(archivedObject, identifier: JLUserDefaultsArrayKey)
+//        let defaults = UserDefaults(suiteName: JLUserDefaultsNameKey)
+//        defaults?.set(archivedObject, forKey: JLUserDefaultsArrayKey)
+//        defaults?.synchronize()
     }
     
     class func retrieveModelArr() -> [JLModel]? {
-        let defaults = UserDefaults(suiteName: JLUserDefaultsNameKey)
-        if let unarchivedObject = defaults?.object(forKey: JLUserDefaultsArrayKey) as? Data {
+//        let defaults = UserDefaults(suiteName: JLUserDefaultsNameKey)
+        let wormhole = MMWormhole(applicationGroupIdentifier: JLUserDefaultsNameKey, optionalDirectory: "wormhole")
+        if let unarchivedObject = wormhole.message(withIdentifier: JLUserDefaultsArrayKey)as? Data {
             return unarchivedModelArr(unarchivedObject: unarchivedObject)
         }
         return nil
+//        if let unarchivedObject = defaults?.object(forKey: JLUserDefaultsArrayKey) as? Data {
+//            return unarchivedModelArr(unarchivedObject: unarchivedObject)
+//        }
+//        return nil
     }
     
     class func getDefaultArr() -> [JLModel] {

@@ -20,11 +20,10 @@ class HomeVC: BaseVC, UICollectionViewDelegate, UICollectionViewDataSource, JLIc
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        leftBtn.isHidden = true
         addBtn.layer.cornerRadius = addBtn.width/2
         
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: (view.width-24)/6, height: (view.width-24)/6/5*7)
+        layout.itemSize = CGSize(width: (view.width-24)/5, height: (view.width-24)/5/5*6)
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
         layout.scrollDirection = UICollectionViewScrollDirection.vertical
@@ -36,6 +35,7 @@ class HomeVC: BaseVC, UICollectionViewDelegate, UICollectionViewDataSource, JLIc
         collection.delegate = self
         collection.dataSource = self
     }
+    
 
     override func setRightBtnImage() {
         rightBtn.setImage(#imageLiteral(resourceName: "nav_edit").withRenderingMode(.alwaysOriginal), for: .normal)
@@ -55,6 +55,8 @@ class HomeVC: BaseVC, UICollectionViewDelegate, UICollectionViewDataSource, JLIc
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        leftBtn.isHidden = true
+
         if let arr = JLModel.retrieveModelArr() {
             _array = arr
         }

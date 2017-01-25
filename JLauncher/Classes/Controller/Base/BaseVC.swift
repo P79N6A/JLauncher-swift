@@ -13,8 +13,9 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate {
     var leftBtn:UIButton!
     var rightBtn:UIButton!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         initLeftBtn()
         initRightBtn()
     }

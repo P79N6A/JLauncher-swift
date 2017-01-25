@@ -18,7 +18,17 @@ class TodayViewController: UIViewController, NCWidgetProviding, UICollectionView
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(UINib(nibName: "UICollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "UICollectionViewCell")
+        collectionView.register(JLIconCell.self, forCellWithReuseIdentifier: JLIconCell.cellIdentifer())
+        if #available(iOSApplicationExtension 10.0, *) {
+            self.extensionContext?.widgetLargestAvailableDisplayMode = NCWidgetDisplayMode.expanded
+        } else {
+            // Fallback on earlier versions
+        }
+        if let arr = JLModel.retrieveModelArr() {
+            _list = arr
+        }
+        collectionView.reloadData()
+
     }
     
     //MARK: - delegate
@@ -26,24 +36,51 @@ class TodayViewController: UIViewController, NCWidgetProviding, UICollectionView
     //MARK: NCWidgetProviding
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-        
         completionHandler(NCUpdateResult.newData)
     }
     
+    @available(iOSApplicationExtension 10.0, *)
+    func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
+        
+        if (activeDisplayMode == NCWidgetDisplayMode.compact) {
+            self.preferredContentSize = maxSize
+        }
+        else {
+            let num:CGFloat = ((_list.count % 5) == 0 ? 0 : 1)
+            
+            let count:CGFloat = CGFloat(_list.count/5) + num
+            let height = count*((maxSize.width-24)/5/5*6)
+            self.preferredContentSize = CGSize(width: maxSize.width, height: height)
+        }
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: (preferredContentSize.width-24)/5, height: (preferredContentSize.width-24)/5/5*6)
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        layout.scrollDirection = UICollectionViewScrollDirection.vertical
+        collectionView.contentInset.left = 12
+        collectionView.contentInset.right = 12
+        
+        collectionView.setCollectionViewLayout(layout, animated: false)
+        collectionView.reloadData()
+    }
     //MARK: UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        if let url = URL(string:_list[indexPath.item].url) {
+            extensionContext?.open(url, completionHandler: nil)
+        }
     }
     
     //MARK: UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return _list.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UICollectionViewCell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JLIconCell.cellIdentifer(), for: indexPath) as! JLIconCell
+        cell.cellWithModel(model: _list[indexPath.item], editMode: .normal, indexPath:indexPath)
         return cell
     }
 }

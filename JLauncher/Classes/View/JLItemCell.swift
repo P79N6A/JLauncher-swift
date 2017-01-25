@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
+import Kingfisher
 
 class JLItemCell: UITableViewCell {
     
@@ -43,9 +46,34 @@ class JLItemCell: UITableViewCell {
     }
     
     func cellWithModel(model:JLLocalModel) {
-        _imageView.image = UIImage.init(named: model.icon ?? "")
+        if let icon = model.icon {
+            _imageView.image = UIImage.init(named: icon)
+        }else {
+            setIconImage(idString: model.id)
+        }
         _textLabel.text = model.name
         _arrowImg.isHidden = model.link?.count == 1
+    }
+    
+    private func setIconImage(idString:String?) {
+        if let idString = idString{
+            let urlStr = "http://itunes.apple.com/lookup?id=" + idString
+            Alamofire.request(urlStr).responseJSON(completionHandler: { response in
+                
+                switch response.result{
+                case .success(let value):
+                    let responseJson = JSON(value)
+                    let imageUrlStr = responseJson["results"][0]["artworkUrl512"].stringValue
+                    if let url = URL(string: imageUrlStr){
+                        KingfisherManager.shared.downloader.downloadImage(with: url, options: nil, progressBlock: nil, completionHandler: { (img, error, url, data) in
+                            self._imageView.image = img
+                        })
+                    }
+                case .failure( _):
+                    break
+                }
+            })
+        }
     }
     
     class func cellHeight() -> CGFloat {

@@ -67,16 +67,26 @@
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "2">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.springboard">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8471EC311DE3E263001D1AA1"
-            BuildableName = "JLauncher.app"
-            BlueprintName = "JLauncher"
+            BlueprintIdentifier = "84837BDE1DEC3DA900897874"
+            BuildableName = "extension.appex"
+            BlueprintName = "extension"
             ReferencedContainer = "container:JLauncher.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "84837BDE1DEC3DA900897874"
+            BuildableName = "extension.appex"
+            BlueprintName = "extension"
+            ReferencedContainer = "container:JLauncher.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

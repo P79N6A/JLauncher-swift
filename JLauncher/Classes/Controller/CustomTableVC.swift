@@ -17,7 +17,7 @@ class CustomTableVC: BaseTableVC {
         super.viewDidLoad()
         
         tableView.register(JLItemCell.self, forCellReuseIdentifier: JLItemCell.cellIdentifer())
-        if let arr = JLModel.retrieveModelArr() {
+        if JLModel.retrieveModelArr() != nil {
 //            _addedArray = arr
         }
         tableView.reloadData()

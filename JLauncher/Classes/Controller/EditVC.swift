@@ -57,6 +57,8 @@ class EditVC: BaseVC{
             if var array = JLModel.retrieveModelArr() {
                 array.append(model)
                 JLModel.saveModel(arr: array)
+            }else {
+                JLModel.saveModel(arr: [model])
             }
             _ = navigationController?.popToRootViewController(animated: true)
         }

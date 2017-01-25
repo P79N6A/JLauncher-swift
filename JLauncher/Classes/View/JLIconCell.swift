@@ -38,7 +38,7 @@ class JLIconCell: UICollectionViewCell {
     }
     
     private func initViews() {
-        _imageView = UIImageView(frame: CGRect(x: 5, y: 5, width: width-10, height: width-10))
+        _imageView = UIImageView(frame: CGRect(x: 10, y: 10, width: width-20, height: width-20))
         _imageView.setCornerRadius(4)
         addSubview(_imageView)
         _textLabel = UILabel(frame: CGRect(x: 0, y: _imageView.bottom, width: width, height: height-_imageView.height))

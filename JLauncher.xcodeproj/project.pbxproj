@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1403ED271E36324D009352F3 /* ActionTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1403ED261E36324D009352F3 /* ActionTypeVC.swift */; };
 		1403ED291E364CBA009352F3 /* SystemTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1403ED281E364CBA009352F3 /* SystemTableVC.swift */; };
 		1403ED2B1E364CCF009352F3 /* CustomTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1403ED2A1E364CCF009352F3 /* CustomTableVC.swift */; };
 		1403ED2D1E364CE4009352F3 /* InstalledTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1403ED2C1E364CE4009352F3 /* InstalledTableVC.swift */; };
@@ -29,6 +28,11 @@
 		143D79D21E2E2AC10041F21C /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143D79D11E2E2AC10041F21C /* UIView.swift */; };
 		143D79D31E2E2AC50041F21C /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143D79D11E2E2AC10041F21C /* UIView.swift */; };
 		143D79E81E2F74D20041F21C /* JLItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143D79E71E2F74D20041F21C /* JLItemCell.swift */; };
+		143F03BA1E385EBC0027E626 /* JLLocalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1422055A1E3763E70048539B /* JLLocalModel.swift */; };
+		143F03C91E3862060027E626 /* AppList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1403ED2F1E370A5F009352F3 /* AppList.plist */; };
+		143F03CA1E3862090027E626 /* SettingList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1403ED351E370A5F009352F3 /* SettingList.plist */; };
+		143F03CE1E3862FB0027E626 /* SystemAppList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1403ED371E370A5F009352F3 /* SystemAppList.plist */; };
+		143F03D01E388A410027E626 /* ActionTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143F03CF1E388A410027E626 /* ActionTypeVC.swift */; };
 		14869BB41E29CDD200462633 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14869BB21E29CDD200462633 /* LaunchScreen.storyboard */; };
 		6FC21A18AD0C6BA8B9BA7664 /* Pods_JLauncher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 651DC29E54B41E5514DF9BBE /* Pods_JLauncher.framework */; };
 		8471EC361DE3E263001D1AA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471EC351DE3E263001D1AA1 /* AppDelegate.swift */; };
@@ -67,7 +71,6 @@
 
 /* Begin PBXFileReference section */
 		115D610EFA547A8FA82809CB /* Pods-extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-extension/Pods-extension.release.xcconfig"; sourceTree = "<group>"; };
-		1403ED261E36324D009352F3 /* ActionTypeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionTypeVC.swift; sourceTree = "<group>"; };
 		1403ED281E364CBA009352F3 /* SystemTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemTableVC.swift; sourceTree = "<group>"; };
 		1403ED2A1E364CCF009352F3 /* CustomTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableVC.swift; sourceTree = "<group>"; };
 		1403ED2C1E364CE4009352F3 /* InstalledTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstalledTableVC.swift; sourceTree = "<group>"; };
@@ -85,6 +88,7 @@
 		143D79CB1E2E29080041F21C /* JLIconCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLIconCell.swift; sourceTree = "<group>"; };
 		143D79D11E2E2AC10041F21C /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		143D79E71E2F74D20041F21C /* JLItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLItemCell.swift; sourceTree = "<group>"; };
+		143F03CF1E388A410027E626 /* ActionTypeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionTypeVC.swift; sourceTree = "<group>"; };
 		145839181E29F38E000D6624 /* extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = extension.entitlements; sourceTree = "<group>"; };
 		145839191E29F3A2000D6624 /* JLauncher.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JLauncher.entitlements; sourceTree = "<group>"; };
 		14869BB31E29CDD200462633 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -150,10 +154,10 @@
 		143D79C91E2E24D80041F21C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				143F03CF1E388A410027E626 /* ActionTypeVC.swift */,
 				141CC4631E3784070073B4CA /* Base */,
 				8471EC371DE3E263001D1AA1 /* HomeVC.swift */,
 				1423B9461E2B79E300BC0E79 /* EditVC.swift */,
-				1403ED261E36324D009352F3 /* ActionTypeVC.swift */,
 				1403ED281E364CBA009352F3 /* SystemTableVC.swift */,
 				1403ED2A1E364CCF009352F3 /* CustomTableVC.swift */,
 				1403ED2C1E364CE4009352F3 /* InstalledTableVC.swift */,
@@ -374,6 +378,9 @@
 			files = (
 				1403ED411E370A68009352F3 /* Assets.xcassets in Resources */,
 				84837BE81DEC3DA900897874 /* MainInterface.storyboard in Resources */,
+				143F03CE1E3862FB0027E626 /* SystemAppList.plist in Resources */,
+				143F03C91E3862060027E626 /* AppList.plist in Resources */,
+				143F03CA1E3862090027E626 /* SettingList.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,13 +475,13 @@
 				1423B9471E2B79E300BC0E79 /* EditVC.swift in Sources */,
 				141CC4651E3784230073B4CA /* BaseVC.swift in Sources */,
 				1403ED291E364CBA009352F3 /* SystemTableVC.swift in Sources */,
+				143F03D01E388A410027E626 /* ActionTypeVC.swift in Sources */,
 				141CC4621E3780020073B4CA /* JLItemDetailCell.swift in Sources */,
 				143D79CC1E2E29080041F21C /* JLIconCell.swift in Sources */,
 				141CC4671E3786C00073B4CA /* BaseTableVC.swift in Sources */,
 				1403ED2B1E364CCF009352F3 /* CustomTableVC.swift in Sources */,
 				1422055B1E3763E70048539B /* JLLocalModel.swift in Sources */,
 				143D79D21E2E2AC10041F21C /* UIView.swift in Sources */,
-				1403ED271E36324D009352F3 /* ActionTypeVC.swift in Sources */,
 				1403ED2D1E364CE4009352F3 /* InstalledTableVC.swift in Sources */,
 				8471EC361DE3E263001D1AA1 /* AppDelegate.swift in Sources */,
 				142205601E3779B30048539B /* DetailTableVC.swift in Sources */,
@@ -486,6 +493,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				143D79D31E2E2AC50041F21C /* UIView.swift in Sources */,
+				143F03BA1E385EBC0027E626 /* JLLocalModel.swift in Sources */,
 				84837BE51DEC3DA900897874 /* TodayViewController.swift in Sources */,
 				143D79CD1E2E29120041F21C /* JLIconCell.swift in Sources */,
 				1423B9411E2B5F0100BC0E79 /* JLModel.swift in Sources */,
@@ -673,6 +681,7 @@
 			buildSettings = {
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CODE_SIGN_ENTITLEMENTS = extension/extension.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = HZXYZ9XT7A;
 				INFOPLIST_FILE = extension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -690,6 +699,7 @@
 			buildSettings = {
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CODE_SIGN_ENTITLEMENTS = extension/extension.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = HZXYZ9XT7A;
 				INFOPLIST_FILE = extension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
