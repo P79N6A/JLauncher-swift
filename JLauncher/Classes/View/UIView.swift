@@ -178,45 +178,19 @@ public extension UIView {
 
 extension UIView: UIGestureRecognizerDelegate {
     
-    typealias UIViewTapBlock = @convention(block)()->()
-    
-    fileprivate struct TapAssociatedKeys {
-        static var kWhenLongPressBlockKey = "kWhenLongPressBlockKey"
-        static var kWhenTappedBlockKey = "kWhenTappedBlockKey"
-        static var kWhenDoubleTappedBlockKey = "kWhenDoubleTappedBlockKey"
-        static var kWhenTwoFingerTappedBlockKey = "kWhenTwoFingerTappedBlockKey"
-        static var kWhenTouchedDownBlockKey = "kWhenTouchedDownBlockKey"
-        static var kWhenTouchedUpBlockKey = "kWhenTouchedUpBlockKey"
-    }
-    
-    // Set blocks
-    
-    func runBlockForKey(_ blockKey:UnsafeRawPointer) {
-        if let tapBlock = objc_getAssociatedObject(self, blockKey){
-            let block = unsafeBitCast(tapBlock, to: UIViewTapBlock.self)
-            block()
-        }
-    }
-    
-    func setBlock(_ tapBlock:UIViewTapBlock, blockKey:UnsafeRawPointer) {
-        self.isUserInteractionEnabled = true
-        objc_setAssociatedObject(self, blockKey, unsafeBitCast(tapBlock, to: AnyObject.self), objc_AssociationPolicy.OBJC_ASSOCIATION_COPY_NONATOMIC)
-    }
-    
     //When Tapped
     
-    func whenTapped(_ block:(()->())) {
-        let gesture = self.addTapGestureRecognizerWithTaps(1, touches:1, selector:#selector(viewWasTapped))
+    func whenTapped(target: Any, action: Selector) {
+        isUserInteractionEnabled = true
+        let gesture = self.addTapGestureRecognizerWithTaps(1, touches:1, target:target, selector:action)
         self.addRequiredToDoubleTapsRecognizer(gesture)
-        self.setBlock(block, blockKey: &TapAssociatedKeys.kWhenTappedBlockKey)
     }
     
-    func whenLongPress(_ block:(()->())) {
-        
-        let longPress = UILongPressGestureRecognizer.init(target: self, action: #selector(viewWasLongPress))
+    func whenLongPress(target: Any, action: Selector) {
+        isUserInteractionEnabled = true
+        let longPress = UILongPressGestureRecognizer.init(target: target, action: action)
         longPress.delegate = self;
         self.addGestureRecognizer(longPress)
-        self.setBlock(block, blockKey:&TapAssociatedKeys.kWhenLongPressBlockKey)
     }
     
     public func removeLongPress() {
@@ -232,38 +206,10 @@ extension UIView: UIGestureRecognizerDelegate {
         }
     }
     
-    // Callbacks
-    
-    func viewWasTapped() {
-        self.runBlockForKey(&TapAssociatedKeys.kWhenTappedBlockKey)
-    }
-    
-    func viewWasLongPress() {
-        self.runBlockForKey(&TapAssociatedKeys.kWhenLongPressBlockKey)
-    }
-    
-    func viewWasDoubleTapped() {
-        self.runBlockForKey(&TapAssociatedKeys.kWhenDoubleTappedBlockKey)
-    }
-    
-    func viewWasTwoFingerTapped() {
-        self.runBlockForKey(&TapAssociatedKeys.kWhenTwoFingerTappedBlockKey)
-    }
-    
-    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        self.runBlockForKey(&TapAssociatedKeys.kWhenTouchedDownBlockKey)
-    }
-    
-    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-        self.runBlockForKey(&TapAssociatedKeys.kWhenTouchedUpBlockKey)
-    }
-    
     // Helpers
     
-    func addTapGestureRecognizerWithTaps(_ taps:Int, touches:Int, selector:Selector) -> UITapGestureRecognizer {
-        let tapGesture = UITapGestureRecognizer.init(target: self, action: selector)
+    func addTapGestureRecognizerWithTaps(_ taps:Int, touches:Int, target: Any, selector:Selector) -> UITapGestureRecognizer {
+        let tapGesture = UITapGestureRecognizer.init(target: target, action: selector)
         tapGesture.delegate = self
         tapGesture.numberOfTapsRequired = taps
         tapGesture.numberOfTouchesRequired = touches

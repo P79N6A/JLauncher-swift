@@ -10,8 +10,11 @@ import UIKit
 import Kingfisher
 import Alamofire
 import SwiftyJSON
+import AVFoundation
+import AssetsLibrary
+import Photos
 
-class EditVC: BaseVC{
+class EditVC: BaseVC, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     @IBOutlet weak var iconImg: UIImageView!
     @IBOutlet weak var appNameTextField: UITextField!
@@ -21,13 +24,17 @@ class EditVC: BaseVC{
     
     var localModel:JLLocalModel?
     var linkIndex = 0
-
+    var imagePicker: UIImagePickerController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        iconImg.setCornerRadius(iconImg.width/4)
+        iconImg.setBorderColor(UIColor.black.withAlphaComponent(0.1))
+        iconImg.setBorderWidth(0.5)
+        
+        iconImg.whenTapped(target: self, action: #selector(showActionSheet))
+        
         if let model = localModel {
-            iconImg.setCornerRadius(iconImg.width/4)
-            iconImg.setBorderColor(UIColor.black.withAlphaComponent(0.1))
-            iconImg.setBorderWidth(0.5)
             if let icon = model.icon {
                 if let img = UIImage.init(named: icon) {
                     iconImg.image = img
@@ -85,6 +92,37 @@ class EditVC: BaseVC{
                 }
             })
         }
-        
+    }
+    
+    func showActionSheet() {
+        imagePicker =  UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        let sheetVC = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        sheetVC.addAction(UIAlertAction(title: "Camera", style: .default, handler: { [weak self](action) in
+            let avAuthStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+            if self != nil && (avAuthStatus == .authorized) {
+                self?.imagePicker.sourceType = .camera
+                self?.present(self!.imagePicker, animated: true, completion: nil)
+            }
+        }))
+        sheetVC.addAction(UIAlertAction(title: "Picture", style: .default, handler: { [weak self](action) in
+            if self != nil && PHPhotoLibrary.authorizationStatus() == .authorized {
+                self?.imagePicker.sourceType = .photoLibrary
+                self?.present(self!.imagePicker, animated: true, completion: nil)
+            }
+        }))
+        sheetVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(sheetVC, animated: true, completion: nil)
+    }
+    //MARK: - Delegate
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        imagePicker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        imagePicker.dismiss(animated: true, completion: nil)
+        iconImg.image = info[UIImagePickerControllerEditedImage] as? UIImage
     }
 }

@@ -242,7 +242,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8hR-fg-o54" userLabel="CustomView">
-                                <rect key="frame" x="66.5" y="394" width="242" height="100"/>
+                                <rect key="frame" x="66.5" y="294" width="242" height="100"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7YO-JE-sfa">
                                         <rect key="frame" x="0.0" y="0.0" width="242" height="100"/>
@@ -288,64 +288,15 @@
                                     <constraint firstAttribute="leading" secondItem="k8u-QJ-IS6" secondAttribute="leading" id="taM-wa-J9F"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tEE-cN-aG6" userLabel="CollectionView">
-                                <rect key="frame" x="66" y="294" width="241.5" height="100"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mpb-MT-PSI">
-                                        <rect key="frame" x="0.0" y="0.0" width="241.5" height="100"/>
-                                        <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1"/>
-                                        <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
-                                        <inset key="titleEdgeInsets" minX="-55" minY="0.0" maxX="-29" maxY="0.0"/>
-                                        <inset key="imageEdgeInsets" minX="-1" minY="20" maxX="159" maxY="14"/>
-                                        <state key="normal">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="Uyb-38-Xg9" kind="show" id="7Ag-NC-FEW"/>
-                                        </connections>
-                                    </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="action_type_collections" translatesAutoresizingMaskIntoConstraints="NO" id="8ZZ-Ew-fYn">
-                                        <rect key="frame" x="-0.5" y="25" width="50" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="oRO-vQ-eOu"/>
-                                            <constraint firstAttribute="width" constant="50" id="vgj-qP-qFS"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Custom Apps" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xGU-Cm-lVG">
-                                        <rect key="frame" x="61.5" y="35.5" width="180" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="180" id="q2T-sa-1ny"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="xGU-Cm-lVG" firstAttribute="leading" secondItem="8ZZ-Ew-fYn" secondAttribute="trailing" constant="12" id="6VY-UG-5Z8"/>
-                                    <constraint firstAttribute="leading" secondItem="8ZZ-Ew-fYn" secondAttribute="leading" id="CnM-hF-hTF"/>
-                                    <constraint firstItem="mpb-MT-PSI" firstAttribute="top" secondItem="tEE-cN-aG6" secondAttribute="top" id="QW8-sN-s3d"/>
-                                    <constraint firstItem="8ZZ-Ew-fYn" firstAttribute="centerY" secondItem="tEE-cN-aG6" secondAttribute="centerY" id="WWY-7Q-vPD"/>
-                                    <constraint firstAttribute="trailing" secondItem="xGU-Cm-lVG" secondAttribute="trailing" id="dWl-yE-ArA"/>
-                                    <constraint firstAttribute="height" constant="100" id="fsn-5d-CB9"/>
-                                    <constraint firstAttribute="trailing" secondItem="mpb-MT-PSI" secondAttribute="trailing" id="fxM-3F-j4e"/>
-                                    <constraint firstAttribute="bottom" secondItem="mpb-MT-PSI" secondAttribute="bottom" id="teI-Ds-Kt2"/>
-                                    <constraint firstItem="xGU-Cm-lVG" firstAttribute="centerY" secondItem="tEE-cN-aG6" secondAttribute="centerY" id="z9y-zX-kGV"/>
-                                    <constraint firstItem="mpb-MT-PSI" firstAttribute="leading" secondItem="tEE-cN-aG6" secondAttribute="leading" id="zhc-d5-9gA"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="tEE-cN-aG6" firstAttribute="centerX" secondItem="WuT-HX-1za" secondAttribute="centerX" id="Ed5-5s-Dsf"/>
                             <constraint firstItem="Plv-ax-q8o" firstAttribute="top" secondItem="I2R-Zq-S8N" secondAttribute="bottom" constant="30" id="FI9-3W-iO9"/>
-                            <constraint firstItem="8hR-fg-o54" firstAttribute="top" secondItem="tEE-cN-aG6" secondAttribute="bottom" id="HPJ-Rn-JYd"/>
                             <constraint firstItem="sCc-aj-aVk" firstAttribute="top" secondItem="Plv-ax-q8o" secondAttribute="bottom" id="URW-QR-Xbo"/>
                             <constraint firstItem="8hR-fg-o54" firstAttribute="centerX" secondItem="WuT-HX-1za" secondAttribute="centerX" id="feH-dt-nSj"/>
-                            <constraint firstItem="tEE-cN-aG6" firstAttribute="top" secondItem="sCc-aj-aVk" secondAttribute="bottom" id="ogf-ds-BR2"/>
                             <constraint firstItem="Plv-ax-q8o" firstAttribute="centerX" secondItem="WuT-HX-1za" secondAttribute="centerX" id="pi4-dk-uPD"/>
                             <constraint firstItem="sCc-aj-aVk" firstAttribute="centerX" secondItem="WuT-HX-1za" secondAttribute="centerX" id="q9w-G8-KXK"/>
+                            <constraint firstItem="8hR-fg-o54" firstAttribute="top" secondItem="sCc-aj-aVk" secondAttribute="bottom" id="w7X-a7-uak"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -421,7 +372,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zgF-Gk-qe3">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="zgF-Gk-qe3">
                                 <rect key="frame" x="137.5" y="79" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="6QD-ne-JUb"/>
@@ -528,10 +479,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="action_type_collections" width="200" height="200"/>
         <image name="action_type_custom" width="200" height="200"/>
         <image name="action_type_launch_app" width="200" height="200"/>
         <image name="action_type_system_actions" width="200" height="200"/>
         <image name="add_action" width="94" height="94"/>
+        <image name="icon" width="180" height="180"/>
     </resources>
 </document>
