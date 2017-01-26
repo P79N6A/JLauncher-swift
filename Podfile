@@ -8,7 +8,7 @@ target 'JLauncher' do
   pod 'Alamofire', '~> 4.0'
   pod 'Kingfisher', '~> 3.0'
   pod 'SwiftyJSON'
-  pod 'MMWormhole', '~> 2.0.0'
+#  pod 'MMWormhole', '~> 2.0.0'
 end
 
 target 'extension' do
@@ -20,5 +20,5 @@ target 'extension' do
     pod 'Alamofire', '~> 4.0'
     pod 'Kingfisher', '~> 3.0'
     pod 'SwiftyJSON'
-    pod 'MMWormhole', '~> 2.0.0'
+#    pod 'MMWormhole', '~> 2.0.0'
 end

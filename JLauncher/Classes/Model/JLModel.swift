@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MMWormhole
 
 class JLModel: NSObject, NSCoding {
 
@@ -16,8 +15,8 @@ class JLModel: NSObject, NSCoding {
     var image:UIImage?
     var storeID:String?
     
-    fileprivate static let JLUserDefaultsNameKey = "group.com.jtanisme.JLauncher"
-    fileprivate static let JLUserDefaultsArrayKey = "group.com.jtanisme.widget.array"
+    private static let JLUserDefaultsNameKey = "group.com.jtanisme.JLauncher"
+    private static let JLUserDefaultsArrayKey = "group.com.jtanisme.widget.array"
     required init(name:String,url:String,image:UIImage?,storeID:String?) {
         super.init()
         self.name = name
@@ -41,35 +40,74 @@ class JLModel: NSObject, NSCoding {
         aCoder.encode(storeID, forKey: "storeID")
     }
     
-    private class func archiveModelArr(arr:[JLModel]) -> NSData {
+    private class func getImageFromLocal(model:JLModel) -> JLModel {
+        //获得当前的组的路径
+        if var groupPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: JLUserDefaultsNameKey){
+            groupPath.appendPathComponent(model.name+(model.storeID ?? ""))
+            if let data = try? Data(contentsOf: groupPath) {
+                model.image = UIImage(data: data)
+            }
+        }
+        return model
+    }
+    
+    func copyModel() -> JLModel {
+        let model = JLModel(name: name, url: url, image: image, storeID: storeID)
+        return model
+    }
+    
+    private class func saveImageToLocal(model:JLModel) {
+        //获得当前的组的路径
+        if var groupPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: JLUserDefaultsNameKey){
+            groupPath.appendPathComponent(model.name+(model.storeID ?? ""))
+            do{
+                try? UIImageJPEGRepresentation(model.image!, 1.0)?.write(to: groupPath)
+            }
+        }
+    }
+    
+    private class func archiveModelArr(arr:[JLModel]) -> NSData? {
+        var archArr = [JLModel]()
+        for model in arr {
+            let archModel = model.copyModel()
+            
+            saveImageToLocal(model: archModel)
+            archModel.image = nil
+            archArr.append(archModel)
+        }
         NSKeyedArchiver.setClassName("JLModel", for: JLModel.self)
-        let archivedObject = NSKeyedArchiver.archivedData(withRootObject: arr as NSArray)
+        let archivedObject = NSKeyedArchiver.archivedData(withRootObject: archArr)
         return archivedObject as NSData
     }
     
-    private class func unarchivedModelArr(unarchivedObject:Data) -> [JLModel]? {
+    private class func unarchivedModelArr(unarchivedObject:Data) -> [JLModel] {
+
+        var arr = [JLModel]()
         NSKeyedUnarchiver.setClass(JLModel.self, forClassName: "JLModel")
-        let arr = NSKeyedUnarchiver.unarchiveObject(with: unarchivedObject)
-        let a = arr as? [JLModel]
-        return a
+        let array = NSKeyedUnarchiver.unarchiveObject(with: unarchivedObject) as! NSArray
+
+        for item in array {
+            if let model = item as? JLModel {
+                let defModel = getImageFromLocal(model: model)
+                arr.append(defModel)
+            }
+        }
+        return arr
     }
 
     class func saveModel(arr:[JLModel]) {
         let archivedObject = archiveModelArr(arr: arr)
-        let wormhole = MMWormhole(applicationGroupIdentifier: JLUserDefaultsNameKey, optionalDirectory: "wormhole")
-        wormhole.passMessageObject(archivedObject, identifier: JLUserDefaultsArrayKey)
+        let def = UserDefaults(suiteName: JLUserDefaultsNameKey)
+        def?.set(archivedObject, forKey: JLUserDefaultsArrayKey)
+        
     }
     
     class func retrieveModelArr() -> [JLModel]? {
-        let wormhole = MMWormhole(applicationGroupIdentifier: JLUserDefaultsNameKey, optionalDirectory: "wormhole")
-        if let unarchivedObject = wormhole.message(withIdentifier: JLUserDefaultsArrayKey)as? Data {
-            return unarchivedModelArr(unarchivedObject: unarchivedObject)
+        let def = UserDefaults(suiteName: JLUserDefaultsNameKey)
+        if let unarchivedObject = def?.data(forKey: JLUserDefaultsArrayKey){
+            let arr = unarchivedModelArr(unarchivedObject: unarchivedObject)
+            return arr
         }
         return nil
-    }
-    
-    class func getDefaultArr() -> [JLModel] {
-        
-        return [JLModel]()
     }
 }

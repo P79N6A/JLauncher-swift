@@ -27,6 +27,26 @@ class JLIconCell: UICollectionViewCell {
     
     private var _indexPath:IndexPath!
 
+    var isMoving:Bool = false {
+        didSet {
+            isHidden = isMoving
+        }
+    }
+    
+    var snapshot:UIView {
+        
+        let snapshot = UIImageView(frame: bounds)
+        snapshot.image = convertViewToImage()
+        let layer = snapshot.layer
+        layer.masksToBounds = false
+		layer.shadowRadius = 4.0
+        layer.shadowOpacity = 0.5
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width: 4.0, height: 4)
+        return snapshot
+    }
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         initViews()

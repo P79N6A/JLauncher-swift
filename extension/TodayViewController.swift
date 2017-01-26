@@ -17,6 +17,14 @@ class TodayViewController: UIViewController, NCWidgetProviding, UICollectionView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: (view.width-24)/5, height: (view.width-24)/5/5*6)
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 10
+        layout.scrollDirection = UICollectionViewScrollDirection.vertical
+        collectionView = UICollectionView(frame: CGRect(x: 12, y: 12, width: view.width-24, height: view.height-24), collectionViewLayout:layout)
+        collectionView.backgroundColor = .clear
+        view.addSubview(collectionView)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(JLIconCell.self, forCellWithReuseIdentifier: JLIconCell.cellIdentifer())
@@ -32,6 +40,9 @@ class TodayViewController: UIViewController, NCWidgetProviding, UICollectionView
 
     }
     
+    func setLayout() {
+    }
+    
     //MARK: - delegate
     
     //MARK: NCWidgetProviding
@@ -44,23 +55,25 @@ class TodayViewController: UIViewController, NCWidgetProviding, UICollectionView
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         
         if (activeDisplayMode == NCWidgetDisplayMode.compact) {
-            self.preferredContentSize = CGSize(width: maxSize.width, height: (maxSize.width-24)/5)
+            self.preferredContentSize = maxSize
         }
         else {
-            let num:CGFloat = ((_list.count % 5) == 0 ? 0 : 1)
+            let num:Int = ((_list.count % 5) == 0 ? 0 : 1)
             
-            let count:CGFloat = CGFloat(_list.count/5) + num
-            let height = count*((maxSize.width-24)/5/5*6)
-            self.preferredContentSize = CGSize(width: maxSize.width, height: height)
+            let count:Int = Int(_list.count/5) + num
+            let itemHeight = (maxSize.width-24)/5/5*6
+            
+            let height = CGFloat(count) * itemHeight + CGFloat(10 * (count-1))
+            self.preferredContentSize = CGSize(width: maxSize.width, height: height + 24)
         }
         
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: (preferredContentSize.width-24)/5, height: (preferredContentSize.width-24)/5/5*6)
         layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
+        layout.minimumLineSpacing = 10
         layout.scrollDirection = UICollectionViewScrollDirection.vertical
         collectionView.setCollectionViewLayout(layout, animated: true)
-        collectionView.size = preferredContentSize
+        collectionView.size = CGSize(width: preferredContentSize.width-24, height: preferredContentSize.height-24)
         collectionView.reloadData()
     }
     //MARK: UICollectionViewDelegate

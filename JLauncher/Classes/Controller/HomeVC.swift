@@ -11,12 +11,14 @@ import UIKit
 class HomeVC: BaseVC, UICollectionViewDelegate, UICollectionViewDataSource, JLIconCellProtocol{
 
     @IBOutlet weak var collection: UICollectionView!
+    @IBOutlet weak var addBtn: UIButton!
+
     private var _array = [JLModel]()
     private var _editMode:JLIconCellEditMode = .normal
     
-    private var _userDefault:UserDefaults? = nil
-    
-    @IBOutlet weak var addBtn: UIButton!
+    private var _longPressRecongnizer:UILongPressGestureRecognizer?
+    private var _currentDrapAndDropIndexPath:IndexPath?
+    private var _currentDrapAndDropSnapshot:UIView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +28,7 @@ class HomeVC: BaseVC, UICollectionViewDelegate, UICollectionViewDataSource, JLIc
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: (view.width-24)/5, height: (view.width-24)/5/5*6)
         layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
+        layout.minimumLineSpacing = 10
         layout.scrollDirection = UICollectionViewScrollDirection.vertical
         collection.contentInset.left = 12
         collection.contentInset.right = 12
@@ -35,6 +37,8 @@ class HomeVC: BaseVC, UICollectionViewDelegate, UICollectionViewDataSource, JLIc
         collection.register(JLIconCell.self, forCellWithReuseIdentifier: JLIconCell.cellIdentifer())
         collection.delegate = self
         collection.dataSource = self
+        _longPressRecongnizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressRecognizer(sender:)))
+        collection.addGestureRecognizer(_longPressRecongnizer!)
     }
     
 
@@ -64,6 +68,50 @@ class HomeVC: BaseVC, UICollectionViewDelegate, UICollectionViewDataSource, JLIc
         collection.reloadData()
     }
     
+    func longPressRecognizer(sender:UILongPressGestureRecognizer) {
+        let location = sender.location(in: collection)
+        
+        guard _editMode == .editing,
+            let currentIndex = collection.indexPathForItem(at: location) else {
+            return
+        }
+        switch sender.state {
+        case .began:
+            _currentDrapAndDropIndexPath = currentIndex
+            let cell = collection.cellForItem(at: currentIndex) as? JLIconCell
+            _currentDrapAndDropSnapshot = cell!.snapshot
+            updateDrapAndDropSnapshotView(alpha: 0.0, center: cell!.center, transform: CGAffineTransform.identity)
+            collection.addSubview(_currentDrapAndDropSnapshot!)
+            UIView.animate(withDuration: 0.25, animations: {
+                self.updateDrapAndDropSnapshotView(alpha: 0.95, center: cell!.center, transform: CGAffineTransform(scaleX: 1.05, y: 1.05))
+                cell!.isMoving = true
+            })
+        case .changed:
+            _currentDrapAndDropSnapshot?.center = location
+            let sourceModel = _array[_currentDrapAndDropIndexPath!.item]
+            _array.remove(at: _currentDrapAndDropIndexPath!.item)
+            _array.insert(sourceModel, at: currentIndex.item)
+            collection.moveItem(at: _currentDrapAndDropIndexPath!, to: currentIndex)
+            _currentDrapAndDropIndexPath = currentIndex
+        default:
+            let cell = collection.cellForItem(at: currentIndex) as? JLIconCell
+            UIView.animate(withDuration: 0.25, animations: {
+                self.updateDrapAndDropSnapshotView(alpha: 0.0, center: cell!.center, transform: .identity)
+            }, completion: {(finished) in
+                cell!.isMoving = false
+                self._currentDrapAndDropSnapshot?.removeFromSuperview()
+                self._currentDrapAndDropSnapshot = nil
+            })
+            
+        }
+        
+    }
+    
+    func updateDrapAndDropSnapshotView(alpha:CGFloat, center:CGPoint, transform:CGAffineTransform) {
+        _currentDrapAndDropSnapshot?.alpha = alpha
+        _currentDrapAndDropSnapshot?.center = center
+        _currentDrapAndDropSnapshot?.transform = transform
+    }
     //MARK: - Delegate
     
     internal func JLIconCellDeleteClicked(indexPath:IndexPath) {
@@ -82,6 +130,10 @@ class HomeVC: BaseVC, UICollectionViewDelegate, UICollectionViewDataSource, JLIc
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return _array.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
+        return true
     }
     
     //MARK: Collection Delegate

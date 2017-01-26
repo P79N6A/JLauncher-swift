@@ -55,7 +55,7 @@ class InstalledAppManager: NSObject {
                     let imageUrlStr = responseJson["results"][0]["artworkUrl512"].stringValue
                     
                     if idString == "590338362" {
-                        NSLog(imageUrlStr + "\n " + (responseJson.rawString() ?? ""))
+                        NSLog(imageUrlStr + " 590338362 \n " + (responseJson.rawString() ?? ""))
                     }
                     model.icon = imageUrlStr
                     self._installedArray.append(model)
