@@ -83,7 +83,7 @@ class JLIconCell: UICollectionViewCell {
     func cellWithModel(model:JLModel,editMode:JLIconCellEditMode, indexPath:IndexPath) {
         _indexPath = indexPath
         _deleteBtn.isHidden = editMode != .editing
-        _imageView.image = model.image
+        _imageView.image = model.image ?? #imageLiteral(resourceName: "icon")
         _textLabel.text = model.name
     }
     

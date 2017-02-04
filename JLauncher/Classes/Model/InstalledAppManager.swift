@@ -11,13 +11,26 @@ import SwiftyJSON
 import Alamofire
 import Kingfisher
 
+protocol InstalledAppManagerProtocol:class {
+    func firstScanFinished()
+}
+
 class InstalledAppManager: NSObject {
 
     static let shared = InstalledAppManager()
+    weak var delegate:InstalledAppManagerProtocol?
+    
     private var _installedArray = [JLLocalModel]()
+    private(set) var isFisrtScan: Bool = false
+    private var _isScanFinished:Bool = false
+    
+    private var _downloadCount:Int = 0
+    private var _needDownArr = [String]()
+    private var _saveArr = [JLModel]()
     
     override init() {
         super.init()
+        isFisrtScan = JLModel.retrieveModelArr() == nil
         getInstalledApps()
     }
     
@@ -34,6 +47,7 @@ class InstalledAppManager: NSObject {
                         self.downloadImage(model: model)
                     }
                 }
+                self._isScanFinished = true
             }
         }
     }
@@ -41,10 +55,8 @@ class InstalledAppManager: NSObject {
     private func downloadImage(model:JLLocalModel) {
         
         if let idString = model.id {
-            
-            if idString == "590338362" {
-                NSLog(model.name + "590338362 \n ")
-            }
+            _downloadCount += 1
+
             let urlStr = "http://itunes.apple.com/cn/lookup?id=" + idString
             Alamofire.request(urlStr).responseJSON(completionHandler: { response in
                 
@@ -52,36 +64,59 @@ class InstalledAppManager: NSObject {
                 case .success(let value):
                     let responseJson = JSON(value)
                     
-                    let imageUrlStr = responseJson["results"][0]["artworkUrl512"].stringValue
+                    let imageUrlStr = responseJson["results"][0]["artworkUrl512"].stringValue//artworkUrl512//artworkUrl100//artworkUrl60
                     
-                    if idString == "590338362" {
-                        NSLog(imageUrlStr + " 590338362 \n " + (responseJson.rawString() ?? ""))
-                    }
                     model.icon = imageUrlStr
                     self._installedArray.append(model)
-                    self.retrieveImage(imageUrlStr: imageUrlStr, result: nil)
+                    self._needDownArr.append(imageUrlStr)
+                    
+                    self.retrieveImage(model:model, imageUrlStr: imageUrlStr, result: { [unowned self] (model, imageUrlStr, image) in
+                        
+                        let jlModel = JLModel(name: model.name, url: model.link?[0].url ?? "", image: image, storeID: model.id)
+                        self._saveArr.append(jlModel)
+                        
+                        if let index = self._needDownArr.index(of: imageUrlStr){
+                            self._needDownArr.remove(at: index)
+                        }
+                        if self._downloadCount == self._installedArray.count
+                            && self._isScanFinished
+                            && self._needDownArr.count == 0
+                        {
+                            self.saveModelArr()
+                        }
+                    })
                 case .failure( _):
-                    break
+                    self._installedArray.append(model)
                 }
             })
         }
     }
     
-    func retrieveImage(imageUrlStr: String, result:((_ image:UIImage)->())?) {
+    func retrieveImage(model:JLLocalModel, imageUrlStr: String,
+                       result:((_ model:JLLocalModel, _ imageUrlStr: String, _ image:UIImage?)->())?) {
         if let imgUrl = URL(string: imageUrlStr){
             let res = ImageResource(downloadURL: imgUrl)
             KingfisherManager.shared.retrieveImage(with: res, options: nil, progressBlock: nil, completionHandler: { (img, error, type, url) in
                 if let image = img {
-                    result?(image)
+                    result?(model, imageUrlStr, image)
                 }else {
                     KingfisherManager.shared.downloader.downloadImage(with: imgUrl, options: nil, progressBlock: nil, completionHandler: { (img, error, url, data) in
+                        result?(model, imageUrlStr, img)
+
                         if let image = img {
-                            result?(image)
                             KingfisherManager.shared.cache.store(image, forKey: res.cacheKey)
                         }
                     })
                 }
             })
+        }
+    }
+    
+    private func saveModelArr() {
+        if isFisrtScan {
+            JLModel.saveModel(arr: _saveArr)
+            delegate?.firstScanFinished()
+            isFisrtScan = false
         }
     }
     

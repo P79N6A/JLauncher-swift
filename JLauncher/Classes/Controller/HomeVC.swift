@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeVC: BaseVC, UICollectionViewDelegate, UICollectionViewDataSource, JLIconCellProtocol{
+class HomeVC: BaseVC, UICollectionViewDelegate, UICollectionViewDataSource, JLIconCellProtocol, InstalledAppManagerProtocol{
 
     @IBOutlet weak var collection: UICollectionView!
     @IBOutlet weak var addBtn: UIButton!
@@ -20,9 +20,12 @@ class HomeVC: BaseVC, UICollectionViewDelegate, UICollectionViewDataSource, JLIc
     private var _currentDrapAndDropIndexPath:IndexPath?
     private var _currentDrapAndDropSnapshot:UIView?
     
+    private var _alertView:UIView?
+    private var _alertLoadingView:UIView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        InstalledAppManager.shared.delegate = self
         addBtn.layer.cornerRadius = addBtn.width/2
         
         let layout = UICollectionViewFlowLayout()
@@ -66,7 +69,23 @@ class HomeVC: BaseVC, UICollectionViewDelegate, UICollectionViewDataSource, JLIc
             _array = arr
         }
         collection.reloadData()
+        initAlertView()
     }
+    
+    func initAlertView() {
+        if InstalledAppManager.shared.isFisrtScan {
+            _alertView = UIView(frame: view.bounds)
+            view.addSubview(_alertView!)
+            _alertLoadingView = UIView(frame: CGRect(x: (_alertView!.width-80)/2, y: (_alertView!.height-80)/2, width: 80, height: 80))
+            _alertLoadingView?.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+            _alertLoadingView?.setCornerRadius(15)
+            _alertLoadingView?.setBorderWidth(1)
+            _alertLoadingView?.setBorderColor(UIColor.black)
+            _alertView?.addSubview(_alertLoadingView!)
+            _ = _alertLoadingView?.startLoading()
+        }
+    }
+    
     
     func longPressRecognizer(sender:UILongPressGestureRecognizer) {
         let location = sender.location(in: collection)
@@ -114,6 +133,16 @@ class HomeVC: BaseVC, UICollectionViewDelegate, UICollectionViewDataSource, JLIc
     }
     //MARK: - Delegate
     
+    func firstScanFinished() {
+        if let arr = JLModel.retrieveModelArr() {
+            _array = arr
+        }
+        collection.reloadData()
+        
+        _alertLoadingView?.stopLoading()
+        _alertView?.removeFromSuperview()
+    }
+    
     internal func JLIconCellDeleteClicked(indexPath:IndexPath) {
         _array.remove(at: indexPath.item)
         collection.reloadData()
@@ -139,7 +168,13 @@ class HomeVC: BaseVC, UICollectionViewDelegate, UICollectionViewDataSource, JLIc
     //MARK: Collection Delegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if _editMode != .editing, let url = URL(string:_array[indexPath.item].url) {
+        if _editMode == .editing {
+            let model = _array[indexPath.item]
+            let mainStory = UIStoryboard.init(name: "Main", bundle: nil)
+            let editVC = mainStory.instantiateViewController(withIdentifier: "EditVC") as! EditVC
+            editVC.modifyModel = model
+            navigationController?.pushViewController(editVC, animated: true)
+        } else if let url = URL(string:_array[indexPath.item].url) {
             UIApplication.shared.openURL(url)
         }
     }

@@ -23,8 +23,12 @@ class EditVC: BaseVC, UINavigationControllerDelegate, UIImagePickerControllerDel
     @IBOutlet weak var conformBtn: UIButton!
     
     var localModel:JLLocalModel?
+    var modifyModel:JLModel?
+    
     var linkIndex = 0
     var imagePicker: UIImagePickerController!
+    var isImageChanged = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,9 +43,11 @@ class EditVC: BaseVC, UINavigationControllerDelegate, UIImagePickerControllerDel
                 if let img = UIImage.init(named: icon) {
                     iconImg.image = img
                 }else if icon.hasPrefix("http") {
-                    InstalledAppManager.shared.retrieveImage(imageUrlStr: icon, result: { (image) in
-                        self.iconImg.image = image
+                    InstalledAppManager.shared.retrieveImage(model:model, imageUrlStr: icon, result: { (model, imageUrlStr, image) in
+                        self.iconImg.image = image ?? #imageLiteral(resourceName: "icon")
                     })
+                }else {
+                    iconImg.image = #imageLiteral(resourceName: "icon")
                 }
             }
             appNameTextField.text = model.name
@@ -53,6 +59,11 @@ class EditVC: BaseVC, UINavigationControllerDelegate, UIImagePickerControllerDel
                 appNameTextField.text = linkModel?.name
                 urlTextField.text = linkModel?.url
             }
+        }else if let model = modifyModel {
+            iconImg.image = model.image ?? #imageLiteral(resourceName: "icon")
+            appNameTextField.text = model.name
+            storeIDTextField.text = model.storeID
+            urlTextField.text = model.url
         }
     }
     
@@ -63,15 +74,31 @@ class EditVC: BaseVC, UINavigationControllerDelegate, UIImagePickerControllerDel
                                 image: image,
                                 storeID: storeIDTextField.text)
             if var array = JLModel.retrieveModelArr() {
-                array.append(model)
+                if let oldModel = modifyModel {
+                    var index = 0
+                    for item in array {
+                        if item.name == oldModel.name
+                            && item.storeID == oldModel.storeID
+                            && item.url == oldModel.url
+                        {
+                            array[index] = model
+                        }
+                        index += 1
+                    }
+                } else {
+                    array.append(model)
+                }
                 JLModel.saveModel(arr: array)
             }else {
+                
                 JLModel.saveModel(arr: [model])
             }
             _ = navigationController?.popToRootViewController(animated: true)
         }
-        if let img = iconImg.image {
-            saveToLocal(image:img)
+        if isImageChanged {
+            if let img = iconImg.image {
+                saveToLocal(image:img)
+            }
         } else if let idString = storeIDTextField.text{
             let urlStr = "http://itunes.apple.com/lookup?id=" + idString
             Alamofire.request(urlStr).responseJSON(completionHandler: { response in
@@ -84,11 +111,13 @@ class EditVC: BaseVC, UINavigationControllerDelegate, UIImagePickerControllerDel
                         KingfisherManager.shared.downloader.downloadImage(with: url, options: nil, progressBlock: nil, completionHandler: { (img, error, url, data) in
                             saveToLocal(image: img)
                         })
-                    }else {
-                        saveToLocal(image:nil)
+                    }else if let img = self.iconImg.image {
+                        saveToLocal(image:img)
                     }
                 case .failure( _):
-                    saveToLocal(image:nil)
+                    if let img = self.iconImg.image {
+                        saveToLocal(image:img)
+                    }
                 }
             })
         }
@@ -115,6 +144,7 @@ class EditVC: BaseVC, UINavigationControllerDelegate, UIImagePickerControllerDel
         sheetVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(sheetVC, animated: true, completion: nil)
     }
+    
     //MARK: - Delegate
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -124,5 +154,6 @@ class EditVC: BaseVC, UINavigationControllerDelegate, UIImagePickerControllerDel
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         imagePicker.dismiss(animated: true, completion: nil)
         iconImg.image = info[UIImagePickerControllerEditedImage] as? UIImage
+        isImageChanged = true
     }
 }

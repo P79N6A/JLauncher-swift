@@ -52,9 +52,15 @@ class JLItemCell: UITableViewCell {
             if let img = UIImage.init(named: icon) {
                 _imageView.image = img
             }else if icon.hasPrefix("http") {
-                InstalledAppManager.shared.retrieveImage(imageUrlStr: icon, result: { (image) in
-                    self._imageView.image = image
+                InstalledAppManager.shared.retrieveImage(model:model, imageUrlStr: icon, result: { (model, imageUrlStr, image) in
+                    if let img = image {
+                        self._imageView.image = img
+                    }else {
+                        self._imageView.image = #imageLiteral(resourceName: "icon")
+                    }
                 })
+            }else {
+                self._imageView.image = #imageLiteral(resourceName: "icon")
             }
         }
         _textLabel.text = model.name
