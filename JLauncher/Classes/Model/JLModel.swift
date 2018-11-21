@@ -15,8 +15,8 @@ class JLModel: NSObject, NSCoding {
     var image:UIImage?
     var storeID:String?
     
-    private static let JLUserDefaultsNameKey = "group.com.kitty.JLauncher"
-    private static let JLUserDefaultsArrayKey = "group.com.kitty.widget.array"
+    private static let JLUserDefaultsNameKey = "group.com.wemomo.JLauncher"
+    private static let JLUserDefaultsArrayKey = "group.com.wemomo.widget.array"
     required init(name:String,url:String,image:UIImage?,storeID:String?) {
         super.init()
         self.name = name
